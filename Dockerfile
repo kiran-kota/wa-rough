@@ -1,5 +1,7 @@
 FROM node:slim
 
+ENV URL=https://whatsapp.roughcommerce.com
+
 WORKDIR /app
 
 COPY . .

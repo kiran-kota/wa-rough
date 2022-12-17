@@ -14,12 +14,9 @@
     "axios": "^0.27.2",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
     "express": "^4.18.1",
-    "instamojo-nodejs": "^0.0.5",
-    "instamojo-payment-nodejs": "^3.0.0"
-  },
-  "devDependencies": {
-    "dotenv": "^16.0.2"
+    "googleapis": "^100.0.0"
   }
 }

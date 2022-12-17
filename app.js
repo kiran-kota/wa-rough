@@ -1,12 +1,14 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 
 const axios = require('axios');
 const bodyParser = require("body-parser");
+const server = require('./server');
 
 const app = express();
-const port = process.env.PORT || 80;
-const URL = 'https://whatsapp.roughcommerce.com';
+const port = process.env.PORT || 3003;
+const URL = process.env.URL;
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -17,6 +19,26 @@ app.set('views', __dirname + '/public');
 app.use(cors());
 
 app.get('/', (req, res)=>res.render('index.html'));
+
+app.get('/pending-message/:id', async (req, res)=>{
+    try {
+        var last_msg = await server.getLastMsg(req.params.id, 'messages');
+        res.json({status: true, message: last_msg});
+    } catch (error) {
+        res.json({status: false, message: error});
+    }
+})
+
+app.post('/update-message/:id', async (req, res)=>{
+    try {
+        await server.updateSheet(req.params.id, req.body.msg, req.body.st);
+        res.json({status: true});
+    } catch (error) {
+        res.json({status: false, message: error});
+    }
+})
+
+
 
 app.get('/session/:id', (req, res)=>res.render('single.html', {id: req.params.id}));
 
